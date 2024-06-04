@@ -15,7 +15,7 @@ Para instalar las dependecias, corra el sigueinte comando desde la _raíz_ de el
 npm install
 ```
 
-## Paso dos: Iniciar la aplicación.
+## Paso dos: Iniciar el Metro Bundler
 
 Después de instalar las dependencias deberá de inicializarse **Metro**.
 
