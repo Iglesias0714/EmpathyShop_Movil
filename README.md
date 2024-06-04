@@ -13,7 +13,7 @@ EmpathyShop es una aplicación movil  desarrollada con React, TypeScript. La apl
 
 1. Clona el repositorio:
    ```bash
-   git clone <https://github.com/Iglesias0714/AWM-Proyecto-Final-EmpathyShop>
+   git clone <https://github.com/Iglesias0714/EmpathyShop_Movil>
    
 2. Navega al directorio del proyecto:
    ```bash
