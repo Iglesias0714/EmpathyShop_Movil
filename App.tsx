@@ -6,16 +6,14 @@ import Home from './app/screens/Home';
 import Login from './app/screens/Login';
 import ProductAdd from './app/screens/ProductAdd';
 import ProductDetails, { Params as ProductDetailsParams } from './app/screens/ProductDetails';
-import { EntradasScreen, MovimientosScreenParams, SalidasScreen } from './app/screens/MovimientosScreens';
 import AboutUs from './app/screens/AboutUs';
+import { ProductProvider } from './app/context/ProductContext';
 
 export type RootStackParamList = {
   Login: undefined;
   Home: undefined;
   ProductDetails: ProductDetailsParams;
   ProductAdd: undefined;
-  EntradasScreen: MovimientosScreenParams;
-  SalidasScreen: MovimientosScreenParams;
   AboutUs: undefined;
 };
 
@@ -23,6 +21,7 @@ const Stack = createStackNavigator<RootStackParamList>();
 
 function App(): React.JSX.Element {
   return (
+    <ProductProvider>
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Login">
         <Stack.Screen
@@ -51,14 +50,6 @@ function App(): React.JSX.Element {
           component={ProductDetails}
         />
         <Stack.Screen
-          name="EntradasScreen"
-          component={EntradasScreen}
-        />
-        <Stack.Screen
-          name="SalidasScreen"
-          component={SalidasScreen}
-        />
-        <Stack.Screen
           name="AboutUs"
           component={AboutUs}
           options={{
@@ -67,6 +58,7 @@ function App(): React.JSX.Element {
         />
       </Stack.Navigator>
     </NavigationContainer>
+    </ProductProvider>
   );
 }
 

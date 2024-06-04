@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { Button, SafeAreaView, Text, TextInput, StyleSheet, View, ScrollView } from 'react-native';
-import LocalDB from '../persistance/localdb';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../../App';
-import WebServiceParams from '../WebServiceParams';
 
 export default function ProductAdd(): React.JSX.Element {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -22,24 +20,23 @@ export default function ProductAdd(): React.JSX.Element {
   };
 
   const btnGuardarOnPress = async () => {
-    const db = await LocalDB.connect();
-    db.transaction(tx => {
-      tx.executeSql(
-        'INSERT INTO productos (nombre, precio, minStock) VALUES (?, ?, ?)',
-        [nombre, precio, minStock],
-      );
-      navigation.goBack();
-    });
-    await fetch(
-      `http://${WebServiceParams.host}:${WebServiceParams.port}/productos`,
-      {
+    try {
+      const response = await fetch('https://empathyshop-proyectofinal-dmh-back.onrender.com/api/products', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ nombre, precio, minStock }),
-      },
-    );
+        body: JSON.stringify({ nombre, precio: parseFloat(precio), minStock: parseInt(minStock, 10) }),
+      });
+
+      if (response.ok) {
+        navigation.goBack();
+      } else {
+        console.error('Error al agregar el producto');
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -157,3 +154,4 @@ const styles = StyleSheet.create({
     color: '#333',
   },
 });
+

@@ -1,11 +1,9 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { SafeAreaView, StyleSheet, Text, View, FlatList, TouchableOpacity, Image, BackHandler, Alert } from 'react-native';
-import { Product } from '../model/Product';
 import { RootStackParamList } from '../../App';
-import LocalDB from '../persistance/localdb';
-import WebServiceParams from '../WebServiceParams';
+import { useProducts } from '../context/ProductContext';
 
 type HomeScreenProps = StackNavigationProp<RootStackParamList, 'Home'>;
 type HomeScreenRoute = RouteProp<RootStackParamList, 'Home'>;
@@ -16,7 +14,7 @@ type HomeProps = {
 };
 
 function Home({ navigation }: HomeProps): React.JSX.Element {
-  const [products, setProducts] = useState<Product[]>([]);
+  const { products, fetchProducts } = useProducts();
   const [menuVisible, setMenuVisible] = useState(false);
 
   const toggleMenu = () => {
@@ -64,27 +62,6 @@ function Home({ navigation }: HomeProps): React.JSX.Element {
     </TouchableOpacity>
   );
 
-  useEffect(() => {
-    LocalDB.init();
-    navigation.addListener('focus', async () => {
-      try {
-        const response = await fetch(
-          `http://${WebServiceParams.host}:${WebServiceParams.port}/productos`,
-          {
-            method: 'GET',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'text/plain',
-            },
-          }
-        );
-        setProducts(await response.json());
-      } catch (error) {
-        console.error(error);
-      }
-    });
-  }, [navigation]);
-
   return (
     <SafeAreaView style={styles.screen}>
       <View style={styles.header}>
@@ -94,6 +71,7 @@ function Home({ navigation }: HomeProps): React.JSX.Element {
             <View style={styles.menu}>
               <Text style={styles.menuItem} onPress={() => navigateTo('Home')}>Inicio</Text>
               <Text style={styles.menuItem} onPress={() => navigateTo('ProductAdd')}>Agregar Producto</Text>
+              <Text style={styles.menuItem} onPress={() => navigateTo('ProductDetails')}>Detalles del Producto</Text>
               <Text style={styles.menuItem} onPress={() => navigateTo('AboutUs')}>¿Quiénes somos?</Text>
               <Text style={styles.menuItem} onPress={exitApp}>Salir</Text>
             </View>

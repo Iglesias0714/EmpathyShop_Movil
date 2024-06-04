@@ -80,10 +80,30 @@ function Login({ navigation }: LoginProps): React.JSX.Element {
 
   const btnIngresarOnPress = async function () {
     if (usuario && contrasena) {
-      navigation.navigate('Home');
-      return;
+      try {
+        const response = await fetch('https://empathyshop-proyectofinal-dmh-back.onrender.com/api/users/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username: usuario, password: contrasena }),
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          // Puedes guardar el token o cualquier dato necesario aquí
+          navigation.navigate('Home');
+        } else {
+          const errorData = await response.json();
+          Alert.alert('Fallido', errorData.message);
+        }
+      } catch (error) {
+        console.error(error);
+        Alert.alert('Error', 'Hubo un problema con el servidor');
+      }
+    } else {
+      Alert.alert('Fallido', 'Datos incorrectos');
     }
-    Alert.alert('Fallido', 'Datos incorrectos');
   };
 
   return (
