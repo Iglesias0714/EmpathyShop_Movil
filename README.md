@@ -32,6 +32,16 @@ Importante para el paso anterior es necesario tener abierto y emulando Android S
 5.  Servidor o Backend de la aplicación
    [EmpathyShop_Proyectofinal_DMH_Back](https://github.com/Iglesias0714/EmpathyShop_Proyectofinal_DMH_Back)
 
+6. Para Iniciar sesión en la aplicación o Logín:
+   Usuario:
+    ```bash
+    Polla
+   ```
+    Contraseña:
+    ```bash
+    12345
+   ```
+
 
 # Componentes del Proyecto
 
