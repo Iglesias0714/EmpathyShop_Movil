@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, SafeAreaView, Text, TextInput, StyleSheet, View, ScrollView } from 'react-native';
+import { Button, SafeAreaView, Text, TextInput, StyleSheet, View, ScrollView, Modal, TouchableOpacity } from 'react-native';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../../App';
 
@@ -44,15 +44,24 @@ export default function ProductAdd(): React.JSX.Element {
       <View style={styles.header}>
         <View style={styles.menuContainer}>
           <Text style={styles.menuButton} onPress={toggleMenu}>Menú</Text>
-          {menuVisible && (
-            <View style={styles.menu}>
-              <Text style={styles.menuItem} onPress={() => navigateTo('Home')}>Inicio</Text>
-              <Text style={styles.menuItem} onPress={() => navigateTo('ProductAdd')}>Agregar Producto</Text>
-              <Text style={styles.menuItem} onPress={() => navigateTo('AboutUs')}>¿Quiénes somos?</Text>
-            </View>
-          )}
         </View>
       </View>
+      <Modal
+        transparent={true}
+        visible={menuVisible}
+        animationType="slide"
+        onRequestClose={() => setMenuVisible(false)}
+      >
+        <TouchableOpacity style={styles.modalOverlay} onPress={() => setMenuVisible(false)}>
+          <View style={styles.modalContent}>
+            <Text style={styles.menuItem} onPress={() => navigateTo('Home')}>Inicio</Text>
+            <Text style={styles.menuItem} onPress={() => navigateTo('ProductAdd')}>Agregar Producto</Text>
+            <Text style={styles.menuItem} onPress={() => navigateTo('ProductDetails')}>Detalles del Producto</Text>
+            <Text style={styles.menuItem} onPress={() => navigateTo('AboutUs')}>¿Quiénes somos?</Text>
+            <Text style={styles.menuItem} onPress={() => navigation.goBack()}>Volver</Text>
+          </View>
+        </TouchableOpacity>
+      </Modal>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.inputContainer}>
           <Text style={styles.label}>Nombre</Text>
@@ -119,16 +128,18 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#005DFF',
   },
-  menu: {
-    marginTop: 10,
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    justifyContent: 'flex-start',
+    paddingTop: 80, // Ajuste para mostrar el menú desplegable desde la parte superior
+  },
+  modalContent: {
     backgroundColor: '#fff',
-    borderRadius: 8,
-    padding: 10,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-    elevation: 1,
+    padding: 20,
+    borderRadius: 10,
+    marginHorizontal: 20,
+    elevation: 5,
   },
   menuItem: {
     fontSize: 16,

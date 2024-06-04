@@ -1,9 +1,8 @@
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useState } from 'react';
-import { SafeAreaView, StyleSheet, Text, View, FlatList, TouchableOpacity, Image, BackHandler, Alert } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View, Image, BackHandler, Alert, Modal, TouchableOpacity } from 'react-native';
 import { RootStackParamList } from '../../App';
-import { useProducts } from '../context/ProductContext';
 
 type HomeScreenProps = StackNavigationProp<RootStackParamList, 'Home'>;
 type HomeScreenRoute = RouteProp<RootStackParamList, 'Home'>;
@@ -14,7 +13,6 @@ type HomeProps = {
 };
 
 function Home({ navigation }: HomeProps): React.JSX.Element {
-  const { products, fetchProducts } = useProducts();
   const [menuVisible, setMenuVisible] = useState(false);
 
   const toggleMenu = () => {
@@ -44,52 +42,35 @@ function Home({ navigation }: HomeProps): React.JSX.Element {
     );
   };
 
-  const productItem = ({ item }: { item: Product }) => (
-    <TouchableOpacity
-      style={styles.productItem}
-      onPress={() => navigation.push('ProductDetails', { product: item })}
-    >
-      <View style={styles.productInfo}>
-        <Text style={styles.itemTitle}>{item.nombre}</Text>
-        <Text style={styles.itemDetails}>Precio: $ {item.precio.toFixed(2)}</Text>
-        <Text style={[
-          styles.itemBadge,
-          item.currentStock < item.minStock ? styles.itemBadgeError : null,
-        ]}>
-          {item.currentStock} en stock
-        </Text>
-      </View>
-    </TouchableOpacity>
-  );
-
   return (
     <SafeAreaView style={styles.screen}>
       <View style={styles.header}>
         <View style={styles.menuContainer}>
           <Text style={styles.menuButton} onPress={toggleMenu}>Menú</Text>
-          {menuVisible && (
-            <View style={styles.menu}>
-              <Text style={styles.menuItem} onPress={() => navigateTo('Home')}>Inicio</Text>
-              <Text style={styles.menuItem} onPress={() => navigateTo('ProductAdd')}>Agregar Producto</Text>
-              <Text style={styles.menuItem} onPress={() => navigateTo('ProductDetails')}>Detalles del Producto</Text>
-              <Text style={styles.menuItem} onPress={() => navigateTo('AboutUs')}>¿Quiénes somos?</Text>
-              <Text style={styles.menuItem} onPress={exitApp}>Salir</Text>
-            </View>
-          )}
         </View>
       </View>
+      <Modal
+        transparent={true}
+        visible={menuVisible}
+        animationType="slide"
+        onRequestClose={() => setMenuVisible(false)}
+      >
+        <TouchableOpacity style={styles.modalOverlay} onPress={() => setMenuVisible(false)}>
+          <View style={styles.modalContent}>
+            <Text style={styles.menuItem} onPress={() => navigateTo('Home')}>Inicio</Text>
+            <Text style={styles.menuItem} onPress={() => navigateTo('ProductAdd')}>Agregar Producto</Text>
+            <Text style={styles.menuItem} onPress={() => navigateTo('ProductDetails')}>Detalles del Producto</Text>
+            <Text style={styles.menuItem} onPress={() => navigateTo('AboutUs')}>¿Quiénes somos?</Text>
+            <Text style={styles.menuItem} onPress={exitApp}>Salir</Text>
+          </View>
+        </TouchableOpacity>
+      </Modal>
       <View style={styles.welcomeContainer}>
         <Text style={styles.welcomeText}>Bienvenido</Text>
         <Text style={styles.welcomeText}>A</Text>
         <Text style={styles.appName}>EmpathyShop</Text>
         <Image source={require('../assets/logo.png')} style={styles.logo} />
       </View>
-      <FlatList
-        data={products}
-        renderItem={productItem}
-        keyExtractor={item => item.id.toString()}
-        contentContainerStyle={styles.listContainer}
-      />
       <View style={styles.footer}>
         <Text style={styles.footerText}>© 2024 EmpathyShop. Todos los derechos reservados.</Text>
       </View>
@@ -130,6 +111,19 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     elevation: 1,
   },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    justifyContent: 'flex-start',
+    paddingTop: 80, // Ajuste para mostrar el menú desplegable desde la parte superior
+  },
+  modalContent: {
+    backgroundColor: '#fff',
+    padding: 20,
+    borderRadius: 10,
+    marginHorizontal: 20,
+    elevation: 5,
+  },
   menuItem: {
     fontSize: 16,
     paddingVertical: 8,
@@ -156,45 +150,6 @@ const styles = StyleSheet.create({
     width: 150,
     height: 150,
     marginBottom: 20,
-  },
-  listContainer: {
-    paddingHorizontal: 16,
-  },
-  productItem: {
-    flexDirection: 'row',
-    padding: 12,
-    borderBottomColor: '#c0c0c0',
-    borderBottomWidth: 1,
-    backgroundColor: 'white',
-    marginVertical: 4,
-    borderRadius: 8,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-    elevation: 1,
-  },
-  productInfo: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  itemTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: 'black',
-  },
-  itemDetails: {
-    fontSize: 16,
-    opacity: 0.8,
-  },
-  itemBadge: {
-    fontSize: 14,
-    color: '#204080',
-    fontWeight: 'bold',
-    marginTop: 4,
-  },
-  itemBadgeError: {
-    color: 'red',
   },
   footer: {
     alignItems: 'center',
