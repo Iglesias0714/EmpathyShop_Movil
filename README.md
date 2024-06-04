@@ -1,13 +1,14 @@
-# [EmpathyShop](https://github.com/Iglesias0714/EmpathyShop_Proyectofinal_DMH) - [React Native](https://reactnative.dev) + [TypeScript](https://www.typescriptlang.org) 
+# [EmpathyShop](https://github.com/Iglesias0714/EmpathyShop_Proyectofinal_DMH) - [React Native](https://reactnative.dev)
 
 EmpathyShop es una aplicación movil  desarrollada con React, TypeScript. La aplicación permite a los usuarios ver una lista de productos con sus nombres, precios y descripciones, así como añadir y eliminar productos. 
 
 ## Tecnologías Utilizadas
 
-- React
+- React Native
 - TypeScript
 - Adroid Studio
 - Visual Studio Code
+- Javascript
 
 ## Instalación
 
