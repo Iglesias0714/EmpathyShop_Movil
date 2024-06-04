@@ -1,47 +1,53 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# [EmpathyShop](https://github.com/Iglesias0714/EmpathyShop_Proyectofinal_DMH) - [React](https://reactjs.org) + [TypeScript](https://www.typescriptlang.org) 
 
-# Getting Started
+EmpathyShop es una aplicación movil  desarrollada con React, TypeScript. La aplicación permite a los usuarios ver una lista de productos con sus nombres, precios y descripciones, así como añadir y eliminar productos. 
 
->**Note**: asegúrese de completar el [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) hasta "Creating a new application", antes de proceder.
+## Tecnologías Utilizadas
 
-## Primer paso: Instalar las dependencias
+- React
+- TypeScript
+- Adroid Studio
+- Visual Studio Code
 
-Primero, se tendrán que instalar las dependencias dentro de la carpeta del proyecto abriendo el cmd con la ruta donde se encuentre este.
+## Instalación
 
-Para instalar las dependecias, corra el sigueinte comando desde la _raíz_ de el proyecto:
+1. Clona el repositorio:
+   ```bash
+   git clone <https://github.com/Iglesias0714/AWM-Proyecto-Final-EmpathyShop>
+   
+2. Navega al directorio del proyecto:
+   ```bash
+   cd EmpathyShop_DMH
 
-```bash
-# using npm
-npm install
-```
+3. Instala las dependencias:
+   ```bash
+   npm install
 
-## Paso dos: Iniciar el Metro Bundler
+4.  Inicia el servidor de desarrollo:
+   ```bash
+    npm run android
+   ```
+Importante para el paso anterior es necesario tener abierto y emulando Android Studio
 
-Después de instalar las dependencias deberá de inicializarse **Metro**.
+5.  Servidor o Backend de la aplicación
+   [EmpathyShop_Proyectofinal_DMH_Back](https://github.com/Iglesias0714/EmpathyShop_Proyectofinal_DMH_Back)
 
-Para iniciar Metro, corra el siguiente comando desde la _raíz_ del proyecto:
 
-```bash
-# using npm
-npm start
-```
+# Componentes del Proyecto
 
-## Paso tres: Iniciar la aplicación
 
-Deje al Metro Bundler corre su _propia_ terminal. Después abra una _nueva_ terminal desde la _raíz_ del proyecto. Corra el siguiente comando para inicializar su aplicación de _Android_ o _iOS_:
-
-### Para Android
-
-```bash
-# using npm
-npm run android
-```
-
-Si todos los programas están en _orden_, se debería de tener ya el _Emulador de Android_, en caso de que algo pudiera salir mal, primero abrir el emulador y emular un dispositivo android antes de usar el último comando.
-
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
-
-## Nota:
-
-Este proyecto utiliza Render para la base de datos, así que cuando recién lo abra va a tardar un poco en reaccionar el login, de 10 a 50 segundos. Favor de presionar iniciar sesión una vez y esperar a que el servidor responda antes de seguir navegando por la aplicación.
+| Componente | Descripción | Enlace |
+|------------|-------------|--------|
+| `AboutUs.tsx` | Componente que muestra la información sobre la empresa EmpathyShop. | [AboutUs.tsx](./app/screens/AboutUs.tsx) |
+| `Home.tsx` | Componente principal que muestra la lista de productos y un menú de navegación. | [Home.tsx](./app/screens/Home.tsx) |
+| `Login.tsx` | Componente de inicio de sesión para la aplicación. | [Login.tsx](./app/screens/Login.tsx) |
+| `MovimientosScreen.tsx` | Componente para registrar entradas y salidas de productos. | [MovimientosScreen.tsx](./app/screens/MovimientosScreen.tsx) |
+| `ProductAdd.tsx` | Componente para agregar nuevos productos a la base de datos. | [ProductAdd.tsx](./app/screens/ProductAdd.tsx) |
+| `ProductDetails.tsx` | Componente que muestra los detalles de un producto específico. | [ProductDetails.tsx](./app/screens/ProductDetails.tsx) |
+| `style.ts` | Archivo de estilos compartidos entre varios componentes. | [style.ts](./app/style.ts) |
+| `WebServiceParams.ts` | Archivo que define los parámetros para la conexión al servicio web. | [WebServiceParams.ts](./app/WebServiceParams.ts) |
+| `localdb.ts` | Archivo que maneja la conexión y la inicialización de la base de datos local SQLite. | [localdb.ts](./app/persistance/localdb.ts) |
+| `Product.ts` | Interfaz que define la estructura de un producto. | [Product.ts](./app/model/Product.ts) |
+| `RoundButton.tsx` | Componente de botón redondo reutilizable. | [RoundButton.tsx](./app/controls/RoundButton.tsx) |
+| `App.tsx` | Archivo principal de la aplicación que configura la navegación. | [App.tsx](./App.tsx) |
 
