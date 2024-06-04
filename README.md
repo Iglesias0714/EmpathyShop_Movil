@@ -10,6 +10,7 @@ EmpathyShop es una aplicación movil  desarrollada con React, TypeScript. La apl
 - Visual Studio Code
 - Javascript
 
+
 ## Instalación
 
 1. Clona el repositorio:
@@ -64,3 +65,11 @@ Importante para el paso anterior es necesario tener abierto y emulando Android S
 | `RoundButton.tsx` | Componente de botón redondo reutilizable. | [RoundButton.tsx](./app/controls/RoundButton.tsx) |
 | `App.tsx` | Archivo principal de la aplicación que configura la navegación. | [App.tsx](./App.tsx) |
 
+
+## Enlaces externos
+
+- [React Native](https://reactnative.dev)
+- [Typescript](https://www.typescriptlang.org)
+- [Android Studio](https://developer.android.com/studio?hl=es-419)
+- [Visual Studio Code](https://code.visualstudio.com)
+- [JavaScript](https://developer.mozilla.org/es/docs/Web/JavaScript)
